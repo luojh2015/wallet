@@ -31,13 +31,13 @@ const (
 
 // GRPCAuthInterceptor gRPC 认证拦截器
 type GRPCAuthInterceptor struct {
-	authService *service.AuthService
+	authService service.IAuthService
 	// 需要认证的方法
 	authMethods map[string]bool
 }
 
 // NewGRPCAuthInterceptor 创建 gRPC 认证拦截器
-func NewGRPCAuthInterceptor(authService *service.AuthService) *GRPCAuthInterceptor {
+func NewGRPCAuthInterceptor(authService service.IAuthService) *GRPCAuthInterceptor {
 	return &GRPCAuthInterceptor{
 		authService: authService,
 		authMethods: map[string]bool{

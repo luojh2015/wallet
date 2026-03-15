@@ -15,11 +15,11 @@ import (
 
 type Session struct {
 	sessionRepo repository.ISessionRepository
-	idFactory   idgen.IDFactory
+	idFactory   *idgen.IDFactory
 	ttl         time.Duration
 }
 
-func NewSessionDomain(lc fx.Lifecycle, sessionRepo repository.ISessionRepository, idFactory idgen.IDFactory, cfg *config.Config) *Session {
+func NewSessionDomain(lc fx.Lifecycle, sessionRepo repository.ISessionRepository, idFactory *idgen.IDFactory, cfg *config.Config) *Session {
 	ctx, cancel := context.WithCancel(context.Background())
 	lc.Append(fx.StopHook(cancel))
 

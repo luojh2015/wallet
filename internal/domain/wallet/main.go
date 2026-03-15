@@ -13,11 +13,11 @@ import (
 
 type Wallet struct {
 	walletRepo repository.IWalletRepository
-	idFactory  idgen.IDFactory
+	idFactory  *idgen.IDFactory
 	sync.Mutex
 }
 
-func NewWallet(walletRepo repository.IWalletRepository, idFactory idgen.IDFactory) *Wallet {
+func NewWallet(walletRepo repository.IWalletRepository, idFactory *idgen.IDFactory) *Wallet {
 	return &Wallet{walletRepo: walletRepo, idFactory: idFactory}
 }
 

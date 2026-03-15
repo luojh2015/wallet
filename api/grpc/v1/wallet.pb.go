@@ -1117,16 +1117,16 @@ const file_wallet_proto_rawDesc = "" +
 	"\x1aTRANSACTION_STATUS_PENDING\x10\x01\x12 \n" +
 	"\x1cTRANSACTION_STATUS_COMPLETED\x10\x02\x12\x1d\n" +
 	"\x19TRANSACTION_STATUS_FAILED\x10\x03\x12\x1f\n" +
-	"\x1bTRANSACTION_STATUS_CANCELED\x10\x042\xae\x06\n" +
-	"\rWalletService\x12d\n" +
-	"\fCreateWallet\x12\x1e.wallet.v1.CreateWalletRequest\x1a\x1f.wallet.v1.CreateWalletResponse\"\x13\x82\xd3\xe4\x93\x02\r:\x01*\"\b/wallets\x12Y\n" +
-	"\tGetWallet\x12\x1b.wallet.v1.GetWalletRequest\x1a\x11.wallet.v1.Wallet\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/wallets/{wallet_id}\x12d\n" +
-	"\fDeleteWallet\x12\x1e.wallet.v1.DeleteWalletRequest\x1a\x16.google.protobuf.Empty\"\x1c\x82\xd3\xe4\x93\x02\x16*\x14/wallets/{wallet_id}\x12g\n" +
-	"\fUpdateWallet\x12\x1e.wallet.v1.UpdateWalletRequest\x1a\x16.google.protobuf.Empty\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\x1a\x14/wallets/{wallet_id}\x12a\n" +
-	"\bTransfer\x12\x1a.wallet.v1.TransferRequest\x1a\x1b.wallet.v1.TransferResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/wallets/transfer\x12\x83\x01\n" +
-	"\x0fGetTransactions\x12!.wallet.v1.GetTransactionsRequest\x1a\".wallet.v1.GetTransactionsResponse\")\x82\xd3\xe4\x93\x02#\x12!/wallets/transactions/{wallet_id}\x12R\n" +
-	"\x05Login\x12\x17.wallet.v1.LoginRequest\x1a\x18.wallet.v1.LoginResponse\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/auth/login\x12P\n" +
-	"\x06Logout\x12\x18.wallet.v1.LogoutRequest\x1a\x16.google.protobuf.Empty\"\x14\x82\xd3\xe4\x93\x02\x0e\"\f/auth/logoutB\x8a\x01\n" +
+	"\x1bTRANSACTION_STATUS_CANCELED\x10\x042\xc6\x06\n" +
+	"\rWalletService\x12g\n" +
+	"\fCreateWallet\x12\x1e.wallet.v1.CreateWalletRequest\x1a\x1f.wallet.v1.CreateWalletResponse\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/v1/wallets\x12\\\n" +
+	"\tGetWallet\x12\x1b.wallet.v1.GetWalletRequest\x1a\x11.wallet.v1.Wallet\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/v1/wallets/{wallet_id}\x12g\n" +
+	"\fDeleteWallet\x12\x1e.wallet.v1.DeleteWalletRequest\x1a\x16.google.protobuf.Empty\"\x1f\x82\xd3\xe4\x93\x02\x19*\x17/v1/wallets/{wallet_id}\x12j\n" +
+	"\fUpdateWallet\x12\x1e.wallet.v1.UpdateWalletRequest\x1a\x16.google.protobuf.Empty\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\x1a\x17/v1/wallets/{wallet_id}\x12d\n" +
+	"\bTransfer\x12\x1a.wallet.v1.TransferRequest\x1a\x1b.wallet.v1.TransferResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/v1/wallets/transfer\x12\x86\x01\n" +
+	"\x0fGetTransactions\x12!.wallet.v1.GetTransactionsRequest\x1a\".wallet.v1.GetTransactionsResponse\",\x82\xd3\xe4\x93\x02&\x12$/v1/wallets/transactions/{wallet_id}\x12U\n" +
+	"\x05Login\x12\x17.wallet.v1.LoginRequest\x1a\x18.wallet.v1.LoginResponse\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/auth/login\x12S\n" +
+	"\x06Logout\x12\x18.wallet.v1.LogoutRequest\x1a\x16.google.protobuf.Empty\"\x17\x82\xd3\xe4\x93\x02\x11\"\x0f/v1/auth/logoutB\x8a\x01\n" +
 	"\rcom.wallet.v1B\vWalletProtoP\x01Z'github.com/luojh/wallet/api/proto/v1;v1\xa2\x02\x03WXX\xaa\x02\tWallet.V1\xca\x02\tWallet\\V1\xe2\x02\x15Wallet\\V1\\GPBMetadata\xea\x02\n" +
 	"Wallet::V1b\x06proto3"
 

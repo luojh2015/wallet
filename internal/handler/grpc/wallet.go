@@ -17,10 +17,10 @@ var _ v1.WalletServiceServer = (*WalletServiceServer)(nil)
 type WalletServiceServer struct {
 	v1.UnimplementedWalletServiceServer
 	walletService *service.WalletService
-	authService   *service.AuthService
+	authService   service.IAuthService
 }
 
-func NewWalletServiceServer(walletService *service.WalletService, authService *service.AuthService) *WalletServiceServer {
+func NewWalletServiceServer(walletService *service.WalletService, authService service.IAuthService) *WalletServiceServer {
 	return &WalletServiceServer{
 		walletService: walletService,
 		authService:   authService,

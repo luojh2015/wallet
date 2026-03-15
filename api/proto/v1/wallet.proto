@@ -12,7 +12,7 @@ service WalletService {
     // 创建钱包
     rpc CreateWallet (CreateWalletRequest) returns (CreateWalletResponse) {
         option (google.api.http) = {
-            post: "/wallets"
+            post: "/v1/wallets"
             body: "*"
         };
     }
@@ -20,21 +20,21 @@ service WalletService {
     // 获取钱包
     rpc GetWallet (GetWalletRequest) returns (Wallet) {
         option (google.api.http) = {
-            get: "/wallets/{wallet_id}"
+            get: "/v1/wallets/{wallet_id}"
         };
     }
 
     // 删除钱包
     rpc DeleteWallet (DeleteWalletRequest) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            delete: "/wallets/{wallet_id}"
+            delete: "/v1/wallets/{wallet_id}"
         };
     }
 
     // 更新钱包
     rpc UpdateWallet (UpdateWalletRequest) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            put: "/wallets/{wallet_id}"
+            put: "/v1/wallets/{wallet_id}"
             body: "*"
         };
     }
@@ -42,7 +42,7 @@ service WalletService {
     // 转账
     rpc Transfer (TransferRequest) returns (TransferResponse) {
         option (google.api.http) = {
-            post: "/wallets/transfer"
+            post: "/v1/wallets/transfer"
             body: "*"
         };
     }
@@ -50,14 +50,14 @@ service WalletService {
     // 获取交易记录
     rpc GetTransactions (GetTransactionsRequest) returns (GetTransactionsResponse) {
         option (google.api.http) = {
-            get: "/wallets/transactions/{wallet_id}"
+            get: "/v1/wallets/transactions/{wallet_id}"
         };
     }
 
     // 登录
     rpc Login (LoginRequest) returns (LoginResponse) {
         option (google.api.http) = {
-            post: "/auth/login"
+            post: "/v1/auth/login"
             body: "*"
         };
     }
@@ -65,7 +65,7 @@ service WalletService {
     // 登出
     rpc Logout (LogoutRequest) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            post: "/auth/logout"
+            post: "/v1/auth/logout"
         };
     }
 }
