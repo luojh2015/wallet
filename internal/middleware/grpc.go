@@ -74,7 +74,7 @@ func (i *GRPCAuthInterceptor) authenticate(ctx context.Context) (context.Context
 	session, err := i.authService.ValidateSession(ctx, token)
 	if err != nil {
 		appErr := errors.GetAppError(err)
-		return nil, status.Errorf(codes.Unauthenticated, appErr.Message)
+		return nil, status.Errorf(codes.Unauthenticated, "%s", appErr.Message)
 	}
 
 	// 将认证信息存入 context
