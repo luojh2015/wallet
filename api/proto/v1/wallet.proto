@@ -1,0 +1,205 @@
+syntax = "proto3";
+
+package wallet.v1;
+
+option go_package = "github.com/luojh/wallet/api/proto/v1;v1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+service WalletService {
+    // 创建钱包
+    rpc CreateWallet (CreateWalletRequest) returns (CreateWalletResponse) {
+        option (google.api.http) = {
+            post: "/wallets"
+            body: "*"
+        };
+    }
+
+    // 获取钱包
+    rpc GetWallet (GetWalletRequest) returns (Wallet) {
+        option (google.api.http) = {
+            get: "/wallets/{wallet_id}"
+        };
+    }
+
+    // 删除钱包
+    rpc DeleteWallet (DeleteWalletRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            delete: "/wallets/{wallet_id}"
+        };
+    }
+
+    // 更新钱包
+    rpc UpdateWallet (UpdateWalletRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            put: "/wallets/{wallet_id}"
+            body: "*"
+        };
+    }
+
+    // 转账
+    rpc Transfer (TransferRequest) returns (TransferResponse) {
+        option (google.api.http) = {
+            post: "/wallets/transfer"
+            body: "*"
+        };
+    }
+
+    // 获取交易记录
+    rpc GetTransactions (GetTransactionsRequest) returns (GetTransactionsResponse) {
+        option (google.api.http) = {
+            get: "/wallets/transactions/{wallet_id}"
+        };
+    }
+
+    // 登录
+    rpc Login (LoginRequest) returns (LoginResponse) {
+        option (google.api.http) = {
+            post: "/auth/login"
+            body: "*"
+        };
+    }
+
+    // 登出
+    rpc Logout (LogoutRequest) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/auth/logout"
+        };
+    }
+}
+
+// 钱包状态
+enum WalletStatus {
+    // 未知
+    WALLET_STATUS_UNKNOWN = 0;
+    // 激活
+    WALLET_STATUS_ACTIVE = 1;
+    // 冻结
+    WALLET_STATUS_FROZEN = 2;
+    // 关闭
+    WALLET_STATUS_CLOSED = 3;
+}
+
+// 钱包信息
+message Wallet {
+    string id = 1;
+    string name = 2;
+    int64 balance = 3;
+    WalletStatus status = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+}
+
+// 创建钱包请求
+message CreateWalletRequest {
+    string name = 1;
+    string passwd = 2;
+}
+// 创建钱包响应
+message CreateWalletResponse {
+    string wallet_id = 1;
+}
+
+// 获取钱包请求
+message GetWalletRequest {
+    string wallet_id = 1;
+}
+
+// 更新钱包请求
+message UpdateWalletRequest {
+    string wallet_id = 1;
+    string name = 2;
+    string passwd = 3;
+}
+
+// 删除钱包请求
+message DeleteWalletRequest {
+    string wallet_id = 1;
+}
+
+// 交易类型
+enum TransactionType {
+    // 未知
+    TRANSACTION_TYPE_UNKNOWN = 0;
+    // 转账
+    TRANSACTION_TYPE_TRANSFER = 1;
+    // 存款
+    TRANSACTION_TYPE_DEPOSIT = 2;
+    // 取款
+    TRANSACTION_TYPE_WITHDRAW = 3;
+}
+
+// 交易状态
+enum TransactionStatus {
+    // 未知
+    TRANSACTION_STATUS_UNKNOWN = 0;
+    // 待处理
+    TRANSACTION_STATUS_PENDING = 1;
+    // 完成
+    TRANSACTION_STATUS_COMPLETED = 2;
+    // 失败
+    TRANSACTION_STATUS_FAILED = 3;
+    // 取消
+    TRANSACTION_STATUS_CANCELED = 4;
+}
+
+// 交易信息
+message Transaction {
+    string id = 1;
+    string from_wallet_id = 2;
+    string to_wallet_id = 3;
+    TransactionType type = 4;
+    TransactionStatus status = 5;
+    int64 amount = 6;
+    string idempotency_key = 7;
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp completed_at = 9;
+}
+
+// 转账请求
+message TransferRequest {
+    string from_wallet_id = 1;
+    string to_wallet_id = 2;
+    int64 amount = 3;
+    string passwd = 4;
+    string idempotency_key = 5;
+}
+
+// 转账响应
+message TransferResponse {
+    string transaction_id = 1;
+    TransactionStatus status = 2;
+}
+
+// 获取交易记录请求
+message GetTransactionsRequest {
+    string wallet_id = 1;
+    int32 offset = 2;
+    int32 limit = 3;
+}
+
+// 获取交易记录响应
+message GetTransactionsResponse {
+    repeated Transaction transactions = 1;
+    int32 total = 2;
+}
+
+// 登录请求
+message LoginRequest {
+    string wallet_id = 1;
+    string passwd = 2;
+}
+
+// 登录响应
+message LoginResponse {
+    string token = 1;
+    google.protobuf.Timestamp expired_at = 2;
+}
+
+// 登出请求
+message LogoutRequest {
+    string token = 1;
+}
+
