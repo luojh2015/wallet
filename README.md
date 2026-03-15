@@ -312,3 +312,13 @@ curl -s http://localhost:8080/v1/wallets/<bob_wallet_id>
 # 6. 查询交易记录
 curl -s "http://localhost:8080/v1/wallets/transactions/<alice_wallet_id>?offset=0&limit=10"
 ```
+
+
+## 编译部署
+```shell
+docker compose up -d
+````
+服务默认开放 8080 http服务端口 和 9090 grpc服务端口
+
+**自定义配置**: docker compose 运行的容器自动挂载运行目录下的config目录到容器内/app/config，服务自动加载/app/config/config.yaml
+若要自定义配置，复制 config.example.yaml 为 config.yaml 并修改相关配置项
