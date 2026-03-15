@@ -17,7 +17,7 @@ import (
 
 func main() {
 	fx.New(
-		fx.Provide(config.DefaultConfig),
+		fx.Provide(func() (*config.Config, error) { return config.Load("") }),
 		logger.Module,
 		snowflake.Module,
 		fx.Provide(idgen.NewIDFactory),
