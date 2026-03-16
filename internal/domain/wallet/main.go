@@ -55,6 +55,9 @@ func (w *Wallet) UpdateWallet(ctx context.Context, id string, name, pass string)
 
 // 存款
 func (w *Wallet) Deposit(ctx context.Context, wallet_id, idempotencyKey string, amount int64) (*entity.Transaction, error) {
+	w.Lock()
+	defer w.Unlock()
+
 	ts, err := w.walletRepo.GetTransactionByIdempotencyKey(ctx, wallet_id, idempotencyKey)
 	if err != nil {
 		return nil, err
@@ -80,6 +83,9 @@ func (w *Wallet) Deposit(ctx context.Context, wallet_id, idempotencyKey string, 
 
 // 取款
 func (w *Wallet) Withdraw(ctx context.Context, wallet_id, idempotencyKey string, amount int64) (*entity.Transaction, error) {
+	w.Lock()
+	defer w.Unlock()
+
 	ts, err := w.walletRepo.GetTransactionByIdempotencyKey(ctx, wallet_id, idempotencyKey)
 	if err != nil {
 		return nil, err
@@ -104,6 +110,9 @@ func (w *Wallet) Withdraw(ctx context.Context, wallet_id, idempotencyKey string,
 }
 
 func (w *Wallet) Transfer(ctx context.Context, fromWalletID, toWalletID, idempotencyKey string, amount int64) (*entity.Transaction, error) {
+	w.Lock()
+	defer w.Unlock()
+
 	ts, err := w.walletRepo.GetTransactionByIdempotencyKey(ctx, fromWalletID, idempotencyKey)
 	if err != nil {
 		return nil, err
