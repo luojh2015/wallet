@@ -1,0 +1,534 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "wallet.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "WalletService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/auth/login": {
+      "post": {
+        "summary": "登录",
+        "operationId": "WalletService_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "WalletService"
+        ]
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "summary": "登出",
+        "operationId": "WalletService_Logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "WalletService"
+        ]
+      }
+    },
+    "/v1/wallets": {
+      "post": {
+        "summary": "创建钱包",
+        "operationId": "WalletService_CreateWallet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateWalletResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateWalletRequest"
+            }
+          }
+        ],
+        "tags": [
+          "WalletService"
+        ]
+      }
+    },
+    "/v1/wallets/transactions/{walletId}": {
+      "get": {
+        "summary": "获取交易记录",
+        "operationId": "WalletService_GetTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetTransactionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "WalletService"
+        ]
+      }
+    },
+    "/v1/wallets/transfer": {
+      "post": {
+        "summary": "转账",
+        "operationId": "WalletService_Transfer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1TransferResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1TransferRequest"
+            }
+          }
+        ],
+        "tags": [
+          "WalletService"
+        ]
+      }
+    },
+    "/v1/wallets/{walletId}": {
+      "get": {
+        "summary": "获取钱包",
+        "operationId": "WalletService_GetWallet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1Wallet"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "WalletService"
+        ]
+      },
+      "delete": {
+        "summary": "删除钱包",
+        "operationId": "WalletService_DeleteWallet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "WalletService"
+        ]
+      },
+      "put": {
+        "summary": "更新钱包",
+        "operationId": "WalletService_UpdateWallet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "walletId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WalletServiceUpdateWalletBody"
+            }
+          }
+        ],
+        "tags": [
+          "WalletService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "WalletServiceUpdateWalletBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "passwd": {
+          "type": "string"
+        }
+      },
+      "title": "更新钱包请求"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1CreateWalletRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "passwd": {
+          "type": "string"
+        }
+      },
+      "title": "创建钱包请求"
+    },
+    "v1CreateWalletResponse": {
+      "type": "object",
+      "properties": {
+        "walletId": {
+          "type": "string"
+        }
+      },
+      "title": "创建钱包响应"
+    },
+    "v1GetTransactionsResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Transaction"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "获取交易记录响应"
+    },
+    "v1LoginRequest": {
+      "type": "object",
+      "properties": {
+        "walletId": {
+          "type": "string"
+        },
+        "passwd": {
+          "type": "string"
+        }
+      },
+      "title": "登录请求"
+    },
+    "v1LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "expiredAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "登录响应"
+    },
+    "v1Transaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "fromWalletId": {
+          "type": "string"
+        },
+        "toWalletId": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/v1TransactionType"
+        },
+        "status": {
+          "$ref": "#/definitions/v1TransactionStatus"
+        },
+        "amount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "idempotencyKey": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "交易信息"
+    },
+    "v1TransactionStatus": {
+      "type": "string",
+      "enum": [
+        "TRANSACTION_STATUS_UNKNOWN",
+        "TRANSACTION_STATUS_PENDING",
+        "TRANSACTION_STATUS_COMPLETED",
+        "TRANSACTION_STATUS_FAILED",
+        "TRANSACTION_STATUS_CANCELED"
+      ],
+      "default": "TRANSACTION_STATUS_UNKNOWN",
+      "description": "- TRANSACTION_STATUS_UNKNOWN: 未知\n - TRANSACTION_STATUS_PENDING: 待处理\n - TRANSACTION_STATUS_COMPLETED: 完成\n - TRANSACTION_STATUS_FAILED: 失败\n - TRANSACTION_STATUS_CANCELED: 取消",
+      "title": "交易状态"
+    },
+    "v1TransactionType": {
+      "type": "string",
+      "enum": [
+        "TRANSACTION_TYPE_UNKNOWN",
+        "TRANSACTION_TYPE_TRANSFER",
+        "TRANSACTION_TYPE_DEPOSIT",
+        "TRANSACTION_TYPE_WITHDRAW"
+      ],
+      "default": "TRANSACTION_TYPE_UNKNOWN",
+      "description": "- TRANSACTION_TYPE_UNKNOWN: 未知\n - TRANSACTION_TYPE_TRANSFER: 转账\n - TRANSACTION_TYPE_DEPOSIT: 存款\n - TRANSACTION_TYPE_WITHDRAW: 取款",
+      "title": "交易类型"
+    },
+    "v1TransferRequest": {
+      "type": "object",
+      "properties": {
+        "fromWalletId": {
+          "type": "string"
+        },
+        "toWalletId": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "passwd": {
+          "type": "string"
+        },
+        "idempotencyKey": {
+          "type": "string"
+        }
+      },
+      "title": "转账请求"
+    },
+    "v1TransferResponse": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/v1TransactionStatus"
+        }
+      },
+      "title": "转账响应"
+    },
+    "v1Wallet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "$ref": "#/definitions/v1WalletStatus"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "title": "钱包信息"
+    },
+    "v1WalletStatus": {
+      "type": "string",
+      "enum": [
+        "WALLET_STATUS_UNKNOWN",
+        "WALLET_STATUS_ACTIVE",
+        "WALLET_STATUS_FROZEN",
+        "WALLET_STATUS_CLOSED"
+      ],
+      "default": "WALLET_STATUS_UNKNOWN",
+      "description": "- WALLET_STATUS_UNKNOWN: 未知\n - WALLET_STATUS_ACTIVE: 激活\n - WALLET_STATUS_FROZEN: 冻结\n - WALLET_STATUS_CLOSED: 关闭",
+      "title": "钱包状态"
+    }
+  }
+}

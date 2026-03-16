@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"embed"
 	"net"
 	"net/http"
 	"strconv"
@@ -15,6 +16,9 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
+
+//go:embed all:swagger-ui
+var swaggerUI embed.FS
 
 // NewHTTPServer 创建 HTTP 服务器（集成 gRPC-Gateway）
 func NewHTTPServer(
@@ -102,7 +106,54 @@ func registerGatewayRoutes(router *gin.Engine, gatewayMux http.Handler) {
 		c.String(http.StatusOK, "OK")
 	})
 
-	router.Any("/v1/", wrapGatewayHandler(gatewayMux))
+	// 注册 Swagger UI 路由
+	registerSwaggerRoutes(router)
+
+	router.Any("/v1/*path", wrapGatewayHandler(gatewayMux))
+}
+
+// registerSwaggerRoutes 注册 Swagger UI 和 API 文档路由
+func registerSwaggerRoutes(router *gin.Engine) {
+	// Swagger UI 静态文件 - 使用 StripPrefix 去除 /swagger-ui/ 前缀
+	router.GET("/swagger-ui/*filepath", func(c *gin.Context) {
+		filepath := c.Param("filepath")
+		if filepath == "" || filepath == "/" {
+			filepath = "/index.html"
+		}
+		// 从 embed fs 中读取文件，路径需要包含 swagger-ui 前缀
+		data, err := swaggerUI.ReadFile("swagger-ui" + filepath)
+		if err != nil {
+			c.Status(http.StatusNotFound)
+			return
+		}
+		// 根据文件扩展名设置 Content-Type
+		switch {
+		case strings.HasSuffix(filepath, ".html"):
+			c.Header("Content-Type", "text/html")
+		case strings.HasSuffix(filepath, ".js"):
+			c.Header("Content-Type", "application/javascript")
+		case strings.HasSuffix(filepath, ".css"):
+			c.Header("Content-Type", "text/css")
+		case strings.HasSuffix(filepath, ".json"):
+			c.Header("Content-Type", "application/json")
+		}
+		c.Data(http.StatusOK, c.ContentType(), data)
+	})
+
+	// Swagger UI 入口页面 - 重定向到 index.html
+	router.GET("/swagger", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "/swagger-ui/index.html")
+	})
+
+	// Swagger JSON 文件
+	router.GET("/swagger.json", func(c *gin.Context) {
+		data, err := swaggerUI.ReadFile("swagger-ui/wallet.swagger.json")
+		if err != nil {
+			c.Status(http.StatusNotFound)
+			return
+		}
+		c.Data(http.StatusOK, "application/json", data)
+	})
 }
 
 // wrapGatewayHandler 包装 gRPC-Gateway 处理器

@@ -14,3 +14,8 @@ plugins:
     out: ../../../api/grpc/v1
     opt:
       - paths=source_relative
+  - plugin: openapiv2
+    out: ../../../internal/server/swagger-ui
+    opt:
+      - allow_merge=true
+      - merge_file_name=wallet
