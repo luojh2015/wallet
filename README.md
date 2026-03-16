@@ -322,3 +322,7 @@ docker compose up -d
 
 **自定义配置**: docker compose 运行的容器自动挂载运行目录下的config目录到容器内/app/config，服务自动加载/app/config/config.yaml
 若要自定义配置，复制 config.example.yaml 为 config.yaml 并修改相关配置项
+
+## 接口文档
+通过 buf generate 配置的openapi文档生成插件，自动生成swagger接口文档
+启动服务后访问 http://localhost:8080/swagger-ui/index.html 查看接口文档
