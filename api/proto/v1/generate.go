@@ -1,5 +1,6 @@
 package generate
 
+//go:generate buf dep update
 //go:generate buf generate
 
 // 1. 通过buf管理依赖并生成go代码
